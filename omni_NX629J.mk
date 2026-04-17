@@ -18,11 +18,9 @@
 # Release name
 PRODUCT_RELEASE_NAME := NX629J
 
-# Inherit from AOSP base product
+# Inherit from AOSP base products (no vendor/omni in AOSP manifest)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
-
-# Inherit TWRP common config (AOSP manifest uses this instead of vendor/omni)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/twrp-common.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base_vendor.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := NX629J
