@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2019 The TwrpBuilder Open-Source Project
+# Updated for TWRP AOSP manifest (twrp-12.1)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,5 +15,19 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_NX629J.mk
+# Release name
+PRODUCT_RELEASE_NAME := NX629J
+
+# Inherit TWRP common
+$(call inherit-product, vendor/twrp/config/common.mk)
+
+## Device identifier. This must come after all inclusions
+PRODUCT_DEVICE := NX629J
+PRODUCT_NAME := twrp_NX629J
+PRODUCT_BRAND := nubia
+PRODUCT_MODEL := Nubia Red Magic 3
+PRODUCT_MANUFACTURER := nubia
+
+# HACK: Set vendor patch level
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.build.security_patch=2099-12-31
