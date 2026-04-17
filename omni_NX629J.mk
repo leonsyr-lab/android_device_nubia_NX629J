@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2019 The TwrpBuilder Open-Source Project
+# Updated for Android 11 / TWRP twrp-11
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +18,8 @@
 # Release name
 PRODUCT_RELEASE_NAME := NX629J
 
-$(call inherit-product, build/target/product/embedded.mk)
+# Inherit from base product (Android 11 uses base.mk instead of embedded.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
@@ -32,4 +34,3 @@ PRODUCT_MANUFACTURER := nubia
 # HACK: Set vendor patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.build.security_patch=2099-12-31
-

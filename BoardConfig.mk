@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2019 The TwrpBuilder Open-Source Project
+# Updated for Android 11 / TWRP twrp-11
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -59,15 +60,13 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 
-# QCOM
-#TARGET_USE_SDCLANG := true
-
 # Assert
 TARGET_OTA_ASSERT_DEVICE := NX629J
 
-# Avb
+# AVB
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 262144
@@ -80,8 +79,15 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_PARTITION_SIZE := 734003200
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 
-# System as root
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+# Dynamic Partitions (Android 11)
+TARGET_USES_DYNAMIC_PARTITIONS := true
+BOARD_SUPER_PARTITION_SIZE := 15032385536
+BOARD_SUPER_PARTITION_GROUPS := nubia_dynamic
+BOARD_NUBIA_DYNAMIC_SIZE := 15032385536 - 4096
+BOARD_NUBIA_DYNAMIC_PARTITION_LIST := system vendor product system_ext odm
+
+# Remove deprecated system-as-root for Android 11
+# BOARD_BUILD_SYSTEM_ROOT_IMAGE := true  # Deprecated in Android 11
 BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
 BOARD_SUPPRESS_SECURE_ERASE := true
 
@@ -96,10 +102,12 @@ TARGET_COPY_OUT_VENDOR := vendor
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
+TW_INCLUDE_CRYPTO_FBE := true
 
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
@@ -119,6 +127,11 @@ TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
 TW_EXCLUDE_TWRPAPP := true
 
+# Android 11 additions
+TW_INCLUDE_RESETPROP := true
+TW_INCLUDE_LIBRESETPROP := true
+TW_LOAD_VENDOR_MODULES := "qt660k.ko"
+
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
+PLATFORM_VERSION := 20.1.0
