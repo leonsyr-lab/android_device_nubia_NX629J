@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2019 The TwrpBuilder Open-Source Project
-# Updated for Android 11 / TWRP twrp-11
+# Updated for Android 11+ / TWRP AOSP manifest
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@
 # Release name
 PRODUCT_RELEASE_NAME := NX629J
 
-# Inherit from base product (Android 11 uses base.mk instead of embedded.mk)
+# Inherit from AOSP base product
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+# Inherit TWRP common config (AOSP manifest uses this instead of vendor/omni)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/twrp-common.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := NX629J
