@@ -1,6 +1,6 @@
 # TWRP Source for Nubia Red Magic 3 NX629J
 
-Updated for Android 11 compatibility.
+Updated for Android 11 compatibility. Updated by: Leon_SWW
 
 Works:
 
