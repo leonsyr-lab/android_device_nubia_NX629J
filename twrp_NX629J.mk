@@ -27,7 +27,3 @@ PRODUCT_NAME := twrp_NX629J
 PRODUCT_BRAND := nubia
 PRODUCT_MODEL := Nubia Red Magic 3
 PRODUCT_MANUFACTURER := nubia
-
-# HACK: Set vendor patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.security_patch=2099-12-31
