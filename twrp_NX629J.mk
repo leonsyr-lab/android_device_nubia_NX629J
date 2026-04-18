@@ -21,6 +21,11 @@ PRODUCT_RELEASE_NAME := NX629J
 # Inherit TWRP common
 $(call inherit-product, vendor/twrp/config/common.mk)
 
+# Qualcomm FBE decryption packages
+PRODUCT_PACKAGES += \
+    qcom_decrypt \
+    qcom_decrypt_fbe
+
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := NX629J
 PRODUCT_NAME := twrp_NX629J

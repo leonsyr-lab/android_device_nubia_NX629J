@@ -98,10 +98,11 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
-# Crypto
+# Crypto - Qualcomm FBE with ICE decryption
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
 TW_INCLUDE_CRYPTO_FBE := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
 
 # TWRP specific build flags
 TW_THEME := portrait_hdpi

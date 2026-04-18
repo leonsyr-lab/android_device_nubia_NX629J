@@ -1,5 +1,5 @@
 # Android fstab file - Based on real device dump
-# Red Magic 3 NX629J
+# Red Magic 3 NX629J - Updated for TWRP with FBE+ICE decryption
 
 # mount point       fstype    device                                                      flags
 
@@ -14,7 +14,7 @@
 /system_image       emmc      /dev/block/bootdevice/by-name/system
 /vendor_image       emmc      /dev/block/bootdevice/by-name/vendor
 
-/data               f2fs      /dev/block/bootdevice/by-name/userdata                     flags=fileencryption=ice:aes-256-cts;encryptable=footer;fsflags=inline_xattr;quota
+/data               f2fs      /dev/block/bootdevice/by-name/userdata                     flags=encryptable=footer;fileencryption=ice:aes-256-cts;fsflags=inline_xattr;quota
 /firmware           vfat      /dev/block/bootdevice/by-name/modem                         flags=display="Firmware";mounttodecrypt
 /misc               emmc      /dev/block/bootdevice/by-name/misc
 /modem              emmc      /dev/block/bootdevice/by-name/modem                        flags=backup=1;display="Modem"
