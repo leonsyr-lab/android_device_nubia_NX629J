@@ -1,6 +1,7 @@
 [
   {
-    "repository": "android_device_nubia_NX629J",
-    "target_path": "device/nubia/NX629J"
+    "repository": "android_device_qcom_twrp-common",
+    "target_path": "device/qcom/twrp-common",
+    "branch": "android-11"
   }
 ]
