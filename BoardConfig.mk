@@ -1,6 +1,7 @@
 #
 # Copyright (C) 2019 The TwrpBuilder Open-Source Project
-# Updated for Android 11 / TWRP twrp-11
+# Updated for Android 11+ / TWRP AOSP manifest (twrp-12.1)
+# Based on real device dump from NX629J
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -69,26 +70,21 @@ BOARD_AVB_ENABLE := true
 BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
 
-# Partitions
+# Partitions (from actual device - NO dynamic partitions, system-as-root)
 BOARD_FLASH_BLOCK_SIZE := 262144
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 100663296
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4160749568
 BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 12884901888
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 247463936
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_VENDORIMAGE_PARTITION_SIZE := 734003200
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_CACHEIMAGE_PARTITION_SIZE := 134217728
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
-# Dynamic Partitions (Android 11)
-TARGET_USES_DYNAMIC_PARTITIONS := true
-BOARD_SUPER_PARTITION_SIZE := 15032385536
-BOARD_SUPER_PARTITION_GROUPS := nubia_dynamic
-BOARD_NUBIA_DYNAMIC_SIZE := 15032385536 - 4096
-BOARD_NUBIA_DYNAMIC_PARTITION_LIST := system vendor product system_ext odm
-
-# Remove deprecated system-as-root for Android 11
-# BOARD_BUILD_SYSTEM_ROOT_IMAGE := true  # Deprecated in Android 11
+# System as root (device uses system-as-root, NOT dynamic partitions)
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
 BOARD_SUPPRESS_SECURE_ERASE := true
 
@@ -128,10 +124,9 @@ TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
 TW_EXCLUDE_TWRPAPP := true
 
-# Android 11 additions
+# Android 11+ additions
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
-TW_LOAD_VENDOR_MODULES := "qt660k.ko"
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
