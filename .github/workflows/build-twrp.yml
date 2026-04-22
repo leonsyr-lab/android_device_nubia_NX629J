@@ -1,0 +1,117 @@
+name: Build TWRP for NX629J
+
+on:
+  push:
+    branches: [ android-11.0 ]
+    paths-ignore:
+      - 'README.md'
+      - 'vendor/nubia/NX629J/proprietary-files.txt'
+  workflow_dispatch:
+    inputs:
+      MANIFEST_URL:
+        description: 'Manifest URL'
+        required: true
+        default: 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp'
+      MANIFEST_BRANCH:
+        description: 'Manifest Branch'
+        required: true
+        default: 'twrp-12.1'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+    - name: Display Run Parameters
+      run: |
+        echo "Manifest URL: ${{ github.event.inputs.MANIFEST_URL || 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp' }}"
+        echo "Manifest Branch: ${{ github.event.inputs.MANIFEST_BRANCH || 'twrp-12.1' }}"
+        echo "Device: NX629J"
+
+    - name: Check Out
+      uses: actions/checkout@v4
+
+    - name: Cleanup
+      uses: rokibhasansagar/slimhub_actions@main
+
+    - name: Prepare the environment
+      run: |
+        sudo apt update && sudo apt upgrade -y
+        DEBIAN_FRONTEND=noninteractive sudo apt install -yq \
+            linux-modules-extra-$(uname -r) \
+            gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib \
+            libc6-dev lib32ncurses-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils \
+            xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses-dev libsdl1.2-dev \
+            build-essential libgtk-3-dev libglu1-mesa-dev freeglut3-dev git libxml2 lzop pngcrush schedtool squashfs-tools \
+            imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libncurses6 python3 tar
+
+    - name: Install OpenJDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '11'
+
+    - name: Install repo
+      run: |
+        mkdir ~/bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        sudo ln -sf ~/bin/repo /usr/bin/repo
+
+    - name: Initialize repo
+      run: |
+        mkdir workspace
+        cd workspace
+        git config --global user.name "leonsyr-lab"
+        git config --global user.email "leonsyr-lab@users.noreply.github.com"
+        repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL || 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp' }} -b ${{ github.event.inputs.MANIFEST_BRANCH || 'twrp-12.1' }}
+      id: pwd
+
+    - name: Repo Sync
+      run: |
+        repo sync -j$(nproc --all) --force-sync
+      working-directory: workspace
+
+    - name: Clone device tree
+      run: |
+        git clone https://github.com/leonsyr-lab/android_device_nubia_NX629J -b android-11.0 ./device/nubia/NX629J
+      working-directory: workspace
+
+    - name: Clone qcom common tree
+      run: |
+        git clone https://github.com/TeamWin/android_device_qcom_twrp-common -b android-12.1 ./device/qcom/twrp-common
+      working-directory: workspace
+
+    - name: Sync Device Dependencies
+      run: |
+        bash scripts/convert.sh device/nubia/NX629J/twrp.dependencies
+        repo sync -j$(nproc --all)
+      working-directory: workspace
+      continue-on-error: true
+
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 12
+
+    - name: Building recovery
+      run: |
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        lunch twrp_NX629J-eng && make clean && make recoveryimage -j$(nproc --all)
+      working-directory: workspace
+
+    - name: Upload to Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: | 
+          workspace/out/target/product/NX629J/recovery.img
+        name: TWRP-NX629J-${{ github.run_id }}
+        tag_name: twrp-${{ github.run_id }}
+        body: |
+          TWRP Recovery for Nubia Red Magic 3 (NX629J)
+          Manifest: ${{ github.event.inputs.MANIFEST_BRANCH || 'twrp-12.1' }}
+          FBE+ICE decryption support with keymaster 4.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
