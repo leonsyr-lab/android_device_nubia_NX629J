@@ -17,6 +17,8 @@ on fs
 
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
+    # Create qseecomd symlink (Android 10+ uses vendor.qti name)
+    symlink /system/bin/vendor.qti.hardware.qseecom@1.0-service /system/bin/qseecomd
 
 on boot
     setprop sys.usb.config adb

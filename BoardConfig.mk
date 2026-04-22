@@ -120,6 +120,7 @@ TW_EXCLUDE_TWRPAPP := true
 # Android 11+ additions
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
+TW_USE_FSCRYPT_POLICY := 2
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
