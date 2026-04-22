@@ -68,11 +68,6 @@ jobs:
         git clone https://github.com/leonsyr-lab/android_device_nubia_NX629J -b android-11.0 ./device/nubia/NX629J
       working-directory: workspace
 
-    - name: Clone qcom common tree
-      run: |
-        git clone https://github.com/TeamWin/android_device_qcom_twrp-common -b android-12.1 ./device/qcom/twrp-common
-      working-directory: workspace
-
     - name: Sync Device Dependencies
       run: |
         cp $GITHUB_WORKSPACE/scripts/convert.sh ./
