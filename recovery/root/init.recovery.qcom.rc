@@ -5,6 +5,9 @@
 #   import /init.recovery.qcom_decrypt.rc
 #   import /init.recovery.qcom_decrypt.fbe.rc
 #
+# Binaries are at /vendor/bin/hw/ (avoids AOSP 12 ELF check).
+# Symlinks below make them available at /system/bin/ paths
+# that the qcom common services expect.
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -17,8 +20,16 @@ on fs
 
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
-    # Create qseecomd symlink (Android 10+ uses vendor.qti name)
-    symlink /system/bin/vendor.qti.hardware.qseecom@1.0-service /system/bin/qseecomd
+    # Create symlinks from /system/bin/ → /vendor/bin/hw/ for qcom common services
+    symlink /vendor/bin/hw/android.hardware.keymaster@4.1-service-qti /system/bin/android.hardware.keymaster@4.1-service-qti
+    symlink /vendor/bin/hw/android.hardware.keymaster@4.0-service-qti /system/bin/android.hardware.keymaster@4.0-service-qti
+    symlink /vendor/bin/hw/android.hardware.keymaster@3.0-service-qti /system/bin/android.hardware.keymaster@3.0-service-qti
+    symlink /vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti /system/bin/android.hardware.gatekeeper@1.0-service-qti
+    # qseecomd symlink (Android 10+ uses vendor.qti name)
+    symlink /vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service /system/bin/qseecomd
+    symlink /vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service /system/bin/vendor.qti.hardware.qseecom@1.0-service
+    # cryptfshw service
+    symlink /vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti /system/bin/vendor.qti.hardware.cryptfshw@1.0-service-qti
 
 on boot
     setprop sys.usb.config adb

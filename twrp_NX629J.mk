@@ -2,10 +2,11 @@
 # TWRP for Nubia Red Magic 3 (NX629J) - Android 11 CN ROM
 # FBE + ICE decryption with qcom common tree
 #
-# LESSON LEARNED: Do NOT use PRODUCT_COPY_FILES for any file that the
-# AOSP build system already builds (HIDL stubs, keymaster support libs,
-# gatekeeper libs, vold, etc.). Only use it for vendor-proprietary blobs.
-# Overlapping targets cause "overriding commands" build failures.
+# LESSONS LEARNED:
+# 1. Do NOT use PRODUCT_COPY_FILES for files AOSP already builds (overriding commands error)
+# 2. DEVICE_PATH is NOT available in product makefile scope (use hardcoded paths)
+# 3. AOSP 12 forbids ELF binaries in PRODUCT_COPY_FILES to /system/ destinations
+#    (use /vendor/ destinations + symlinks instead)
 #
 
 # Release name
@@ -15,20 +16,19 @@ PRODUCT_RELEASE_NAME := NX629J
 $(call inherit-product, vendor/twrp/config/common.mk)
 
 # Qualcomm FBE decryption packages (from qcom common tree)
-# These handle: init.rc imports, prepdecrypt.sh, service startup, relink
 PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
 
-# Copy ONLY vendor-proprietary blobs that are NOT built by AOSP.
-# Service binaries (QTI-specific, not in AOSP source):
+# Service binaries go to /vendor/bin/hw/ (avoids AOSP 12 ELF check for /system/)
+# Symlinks from /system/bin/ are created in init.recovery.qcom.rc
 PRODUCT_COPY_FILES += \
-    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.1-service-qti \
-    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.0-service-qti \
-    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@3.0-service-qti \
-    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti:recovery/root/system/bin/android.hardware.gatekeeper@1.0-service-qti \
-    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service:recovery/root/system/bin/vendor.qti.hardware.qseecom@1.0-service \
-    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti:recovery/root/system/bin/vendor.qti.hardware.cryptfshw@1.0-service-qti
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti:recovery/root/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti:recovery/root/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti:recovery/root/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti:recovery/root/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service:recovery/root/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti:recovery/root/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti
 
 # Vendor implementation .so files (QTI-specific, not in AOSP):
 PRODUCT_COPY_FILES += \
