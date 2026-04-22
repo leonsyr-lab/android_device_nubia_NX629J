@@ -7,15 +7,6 @@ on:
       - 'README.md'
       - 'vendor/nubia/NX629J/proprietary-files.txt'
   workflow_dispatch:
-    inputs:
-      MANIFEST_URL:
-        description: 'Manifest URL'
-        required: true
-        default: 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp'
-      MANIFEST_BRANCH:
-        description: 'Manifest Branch'
-        required: true
-        default: 'twrp-12.1'
 
 jobs:
   build:
@@ -25,11 +16,11 @@ jobs:
     steps:
     - name: Display Run Parameters
       run: |
-        echo "Manifest URL: ${{ github.event.inputs.MANIFEST_URL || 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp' }}"
-        echo "Manifest Branch: ${{ github.event.inputs.MANIFEST_BRANCH || 'twrp-12.1' }}"
+        echo "Manifest: twrp-12.1 (AOSP)"
         echo "Device: NX629J"
+        echo "Target: recovery.img"
 
-    - name: Check Out
+    - name: Check Out Device Tree
       uses: actions/checkout@v4
 
     - name: Cleanup
@@ -65,8 +56,7 @@ jobs:
         cd workspace
         git config --global user.name "leonsyr-lab"
         git config --global user.email "leonsyr-lab@users.noreply.github.com"
-        repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL || 'https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp' }} -b ${{ github.event.inputs.MANIFEST_BRANCH || 'twrp-12.1' }}
-      id: pwd
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1
 
     - name: Repo Sync
       run: |
@@ -85,7 +75,8 @@ jobs:
 
     - name: Sync Device Dependencies
       run: |
-        bash scripts/convert.sh device/nubia/NX629J/twrp.dependencies
+        cp $GITHUB_WORKSPACE/scripts/convert.sh ./
+        bash convert.sh device/nubia/NX629J/twrp.dependencies
         repo sync -j$(nproc --all)
       working-directory: workspace
       continue-on-error: true
@@ -111,7 +102,7 @@ jobs:
         tag_name: twrp-${{ github.run_id }}
         body: |
           TWRP Recovery for Nubia Red Magic 3 (NX629J)
-          Manifest: ${{ github.event.inputs.MANIFEST_BRANCH || 'twrp-12.1' }}
+          Manifest: twrp-12.1 (AOSP)
           FBE+ICE decryption support with keymaster 4.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
