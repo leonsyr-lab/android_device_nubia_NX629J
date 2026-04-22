@@ -1,8 +1,6 @@
 #
-# Copyright (C) 2019 The TwrpBuilder Open-Source Project
-# Updated for Android 11 CN ROM TWRP with FBE+ICE decryption
-#
-# Licensed under the Apache License, Version 2.0
+# TWRP for Nubia Red Magic 3 (NX629J) - Android 11 CN ROM
+# FBE + ICE decryption with qcom common tree
 #
 
 # Release name
@@ -11,19 +9,19 @@ PRODUCT_RELEASE_NAME := NX629J
 # Inherit TWRP common
 $(call inherit-product, vendor/twrp/config/common.mk)
 
-# Qualcomm FBE decryption packages
+# Qualcomm FBE decryption packages (from qcom common tree)
 PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
 
-# Copy vendor crypto blobs into recovery ramdisk
+# Copy vendor crypto blobs into recovery ramdisk /system/bin/ (TWRP convention for Android 10+)
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti:recovery/root/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti:recovery/root/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti:recovery/root/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti:recovery/root/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service:recovery/root/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti:recovery/root/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti \
+    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.1-service-qti \
+    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.0-service-qti \
+    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@3.0-service-qti \
+    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti:recovery/root/system/bin/android.hardware.gatekeeper@1.0-service-qti \
+    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service:recovery/root/system/bin/vendor.qti.hardware.qseecom@1.0-service \
+    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti:recovery/root/system/bin/vendor.qti.hardware.cryptfshw@1.0-service-qti \
     $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so:recovery/root/vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so \
     $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so:recovery/root/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so \
     $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so:recovery/root/vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so \
