@@ -23,34 +23,34 @@ PRODUCT_PACKAGES += \
 # Copy ONLY vendor-proprietary blobs that are NOT built by AOSP.
 # Service binaries (QTI-specific, not in AOSP source):
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.1-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.0-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@3.0-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti:recovery/root/system/bin/android.hardware.gatekeeper@1.0-service-qti \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service:recovery/root/system/bin/vendor.qti.hardware.qseecom@1.0-service \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti:recovery/root/system/bin/vendor.qti.hardware.cryptfshw@1.0-service-qti
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.1-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@4.0-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti:recovery/root/system/bin/android.hardware.keymaster@3.0-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti:recovery/root/system/bin/android.hardware.gatekeeper@1.0-service-qti \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service:recovery/root/system/bin/vendor.qti.hardware.qseecom@1.0-service \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti:recovery/root/system/bin/vendor.qti.hardware.cryptfshw@1.0-service-qti
 
 # Vendor implementation .so files (QTI-specific, not in AOSP):
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so:recovery/root/vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so:recovery/root/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so:recovery/root/vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so:recovery/root/vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so:recovery/root/vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so:recovery/root/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so:recovery/root/vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so:recovery/root/vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
 
 # Vendor-specific .so files (definitely not in AOSP):
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libQSEEComAPI.so:recovery/root/vendor/lib64/libQSEEComAPI.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libQTEEConnector_vendor.so:recovery/root/vendor/lib64/libQTEEConnector_vendor.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libqtikeymaster4.so:recovery/root/vendor/lib64/libqtikeymaster4.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libkeymasterprovision.so:recovery/root/vendor/lib64/libkeymasterprovision.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libkeymasterutils.so:recovery/root/vendor/lib64/libkeymasterutils.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libkeymasterdeviceutils.so:recovery/root/vendor/lib64/libkeymasterdeviceutils.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/vendor.qti.hardware.qseecom@1.0.so:recovery/root/vendor/lib64/vendor.qti.hardware.qseecom@1.0.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libcryptfshwcommon.so:recovery/root/vendor/lib64/libcryptfshwcommon.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libcryptfshwhidl.so:recovery/root/vendor/lib64/libcryptfshwhidl.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/vendor.qti.hardware.cryptfshw@1.0.so:recovery/root/vendor/lib64/vendor.qti.hardware.cryptfshw@1.0.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libGPQTEEC_vendor.so:recovery/root/vendor/lib64/libGPQTEEC_vendor.so \
-    $(DEVICE_PATH)/vendor/nubia/NX629J/vendor/lib64/libGPTEE_vendor.so:recovery/root/vendor/lib64/libGPTEE_vendor.so
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libQSEEComAPI.so:recovery/root/vendor/lib64/libQSEEComAPI.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libQTEEConnector_vendor.so:recovery/root/vendor/lib64/libQTEEConnector_vendor.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libqtikeymaster4.so:recovery/root/vendor/lib64/libqtikeymaster4.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libkeymasterprovision.so:recovery/root/vendor/lib64/libkeymasterprovision.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libkeymasterutils.so:recovery/root/vendor/lib64/libkeymasterutils.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libkeymasterdeviceutils.so:recovery/root/vendor/lib64/libkeymasterdeviceutils.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/vendor.qti.hardware.qseecom@1.0.so:recovery/root/vendor/lib64/vendor.qti.hardware.qseecom@1.0.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libcryptfshwcommon.so:recovery/root/vendor/lib64/libcryptfshwcommon.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libcryptfshwhidl.so:recovery/root/vendor/lib64/libcryptfshwhidl.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/vendor.qti.hardware.cryptfshw@1.0.so:recovery/root/vendor/lib64/vendor.qti.hardware.cryptfshw@1.0.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libGPQTEEC_vendor.so:recovery/root/vendor/lib64/libGPQTEEC_vendor.so \
+    device/nubia/NX629J/vendor/nubia/NX629J/vendor/lib64/libGPTEE_vendor.so:recovery/root/vendor/lib64/libGPTEE_vendor.so
 
 # Device identifier
 PRODUCT_DEVICE := NX629J
