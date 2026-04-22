@@ -1,5 +1,25 @@
-sys.usb.controller=a600000.dwc3
-sys.usb.rndis.func.name=rndis_bam
-sys.usb.rmnet.func.name=rmnet_bam
-persist.sys.isUsbOtgEnabled=true
+# Stock A11 ROM properties for TWRP compatibility
+ro.hardware=qcom
+ro.hardware.chip=msmnile
+ro.board.platform=msmnile
+ro.build.product=NX629J
+ro.product.device=NX629J
+ro.product.brand=nubia
+ro.product.model=NX629J
+ro.product.name=NX629J
+
+# Crypto properties (match stock A11 ROM)
+ro.crypto.volume.filenames_mode=aes-256-cts
+ro.crypto.allow_encrypt_override=true
 vendor.gatekeeper.disable_spu=true
+
+# Keymaster version
+ro.keymaster.version=4.1
+
+# Disable secure boot for recovery
+ro.boot.verifiedbootstate=orange
+ro.boot.vbmeta.device_state=unlocked
+ro.boot.verifiedbootstate=orange
+
+# SELinux permissive in recovery
+ro.boot.selinux=permissive

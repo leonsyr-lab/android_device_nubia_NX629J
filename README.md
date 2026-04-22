@@ -1,51 +1,26 @@
-# TWRP Source for Nubia Red Magic 3 NX629J
+# TWRP Device Tree for Nubia Red Magic 3 (NX629J)
 
-Updated for Android 11 compatibility. Updated by: Leon_SWW
+## Android 11 CN ROM (NX629J_V1S_CNCommon_V3.02)
 
-Works:
+### Device Info
+- **SoC**: Qualcomm Snapdragon 855 (SM8150 / msmnile)
+- **Codename**: NX629J
+- **Boot header**: v2
+- **Partition layout**: A-only, system-as-root (NO dynamic partitions)
+- **Data filesystem**: f2fs with FBE + ICE encryption
+- **Bootloader**: Unlocked, AVB algorithm=NONE
 
-- ADB
-- Decryption of /data
-- Screen brightness settings
-- Correct screenshot color
-- MTP
-- Flashing (opengapps, roms, images and so on)
-- Backup/Restore (Needs more testing)
-- USB OTG
-- Android 11 Support
+### Crypto Support
+- **Keymaster**: 4.1 (android.hardware.keymaster@4.1-service-qti)
+- **Gatekeeper**: 1.0 (android.hardware.gatekeeper@1.0-service-qti)
+- **QSEECOM**: vendor.qti.hardware.qseecom@1.0
+- **CryptfsHW**: vendor.qti.hardware.cryptfshw@1.0 (ICE accelerator)
+- **Encryption**: File-Based Encryption (FBE) with Inline Crypto Engine (ICE)
 
-TO-DO:
+### Build Instructions
+Use with TWRP AOSP manifest (twrp-12.1 branch) or GitHub Actions.
 
-- Vibration support
-
-First checkout minimal twrp with omnirom tree:
-
-```
-repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-11
-repo sync
-```
-
-Then add these projects to .repo/manifest.xml:
-
-```
-<project path="device/nubia/NX629J" name="YOUR_GITHUB/android_device_nubia_NX629J" remote="github" revision="android-11.0" />
-```
-
-Finally execute these:
-
-```
-. build/envsetup.sh
-lunch omni_NX629J-eng
-mka recoveryimage ALLOW_MISSING_DEPENDENCIES=true
-```
-
-To test it:
-
-```
-fastboot boot out/target/product/NX629J/recovery.img
-```
-
-https://github.com/mauronofrio/nubia_Kernel_OpenSource
-
-- Thanks to @PeterCxy for the commits and the base: https://github.com/PeterCxy/android_device_nubia_violet-twrp
-- Thanks to MattoftheDead @mrslezak for the kernel source
+### Known Issue
+NX629J bootloader rejects ANY modified recovery image. This tree produces
+a working TWRP with crypto support, but the image may need the stock AVB
+footer transplanted to pass bootloader verification.

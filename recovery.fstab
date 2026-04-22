@@ -1,5 +1,5 @@
-# Android fstab file - Based on real device dump
-# Red Magic 3 NX629J - Updated for TWRP with FBE+ICE decryption
+# Android fstab file - Based on stock A11 ROM (NX629J_V1S_CNCommon_V3.02)
+# Red Magic 3 NX629J - FBE+ICE inlinecrypt decryption
 
 # mount point       fstype    device                                                      flags
 
@@ -14,7 +14,8 @@
 /system_image       emmc      /dev/block/bootdevice/by-name/system
 /vendor_image       emmc      /dev/block/bootdevice/by-name/vendor
 
-/data               f2fs      /dev/block/bootdevice/by-name/userdata                     flags=encryptable=footer;fileencryption=ice:aes-256-cts;fsflags=inline_xattr;quota
+# Data partition: FBE + ICE encryption matching stock fstab.qcom
+/data               f2fs      /dev/block/bootdevice/by-name/userdata                     flags=encryptable=footer;fileencryption=ice;fsflags=inline_xattr,noatime,nosuid,nodev,discard,inlinecrypt,quota
 /firmware           vfat      /dev/block/bootdevice/by-name/modem                         flags=display="Firmware";mounttodecrypt
 /misc               emmc      /dev/block/bootdevice/by-name/misc
 /modem              emmc      /dev/block/bootdevice/by-name/modem                        flags=backup=1;display="Modem"
