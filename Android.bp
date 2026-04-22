@@ -1,0 +1,165 @@
+// Prebuilt crypto blobs for Nubia Red Magic 3 (NX629J) TWRP recovery
+// Qualcomm-proprietary HIDL services needed for FBE/ICE decryption
+//
+// LESSON: AOSP 12 build system forbids ELF files in PRODUCT_COPY_FILES.
+// Use cc_prebuilt_binary / cc_prebuilt_library_shared instead.
+
+// === Service binaries ===
+
+cc_prebuilt_binary {
+    name: "android.hardware.keymaster@4.1-service-qti",
+    srcs: ["vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.1-service-qti"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.keymaster@4.0-service-qti",
+    srcs: ["vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@4.0-service-qti"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.keymaster@3.0-service-qti",
+    srcs: ["vendor/nubia/NX629J/vendor/bin/hw/android.hardware.keymaster@3.0-service-qti"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.gatekeeper@1.0-service-qti",
+    srcs: ["vendor/nubia/NX629J/vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_binary {
+    name: "vendor.qti.hardware.qseecom@1.0-service",
+    srcs: ["vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_binary {
+    name: "vendor.qti.hardware.cryptfshw@1.0-service-qti",
+    srcs: ["vendor/nubia/NX629J/vendor/bin/hw/vendor.qti.hardware.cryptfshw@1.0-service-qti"],
+    vendor: true,
+    recovery_available: true,
+}
+
+// === Vendor implementation .so files ===
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.keymaster@3.0-impl-qti",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.gatekeeper@1.0-impl-qti",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.qti.hardware.qseecom@1.0-impl",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.qti.hardware.qteeconnector@1.0-impl",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+// === Vendor-specific .so files ===
+
+cc_prebuilt_library_shared {
+    name: "libQSEEComAPI",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libQSEEComAPI.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libQTEEConnector_vendor",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libQTEEConnector_vendor.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libqtikeymaster4",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libqtikeymaster4.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libkeymasterprovision",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libkeymasterprovision.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libkeymasterutils",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libkeymasterutils.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libkeymasterdeviceutils",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libkeymasterdeviceutils.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.qti.hardware.qseecom@1.0",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/vendor.qti.hardware.qseecom@1.0.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libcryptfshwcommon",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libcryptfshwcommon.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libcryptfshwhidl",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libcryptfshwhidl.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.qti.hardware.cryptfshw@1.0",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/vendor.qti.hardware.cryptfshw@1.0.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libGPQTEEC_vendor",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libGPQTEEC_vendor.so"],
+    vendor: true,
+    recovery_available: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libGPTEE_vendor",
+    srcs: ["vendor/nubia/NX629J/vendor/lib64/libGPTEE_vendor.so"],
+    vendor: true,
+    recovery_available: true,
+}
